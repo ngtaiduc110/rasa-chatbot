@@ -1,0 +1,38 @@
+version: "3.1"
+
+stories:
+- story: Luồng tư vấn y tế cơ bản
+  steps:
+    - intent: ask_medical_advice
+    - action: medical_advice_form
+    - active_loop: medical_advice_form
+    - active_loop: null
+    - action: action_provide_medical_advice
+    - intent: affirm
+    - action: utter_ask_symptoms
+    - intent: inform
+    - action: action_provide_medical_advice
+
+- story: Luồng tìm kiếm thông tin bác sĩ
+  steps:
+    - intent: ask_doctor_info
+    - action: action_search_doctor
+    - intent: ask_department_info
+    - action: action_search_department
+
+- story: Luồng kiểm tra bảo hiểm
+  steps:
+    - intent: ask_insurance
+    - action: action_check_insurance
+    - intent: ask_payment
+    - action: utter_ask_payment
+
+- story: Luồng đặt lịch tái khám
+  steps:
+    - intent: book_appointment
+    - action: booking_form
+    - active_loop: booking_form
+    - active_loop: null
+    - action: action_submit_booking
+    - intent: affirm
+    - action: action_schedule_follow_up 

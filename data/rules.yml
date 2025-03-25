@@ -1,0 +1,73 @@
+version: "3.1"
+
+rules:
+- rule: Kích hoạt form đặt lịch
+  condition:
+    - active_loop: null
+  steps:
+    - intent: book_appointment
+    - action: booking_form
+    - active_loop: booking_form
+
+- rule: Xử lý khi form hoàn thành
+  condition:
+    - active_loop: booking_form
+  steps:
+    - action: booking_form
+    - active_loop: null
+    - action: action_submit_booking
+
+- rule: Kích hoạt form tư vấn y tế
+  condition:
+    - active_loop: null
+  steps:
+    - intent: ask_medical_advice
+    - action: medical_advice_form
+    - active_loop: medical_advice_form
+
+- rule: Xử lý khi form tư vấn y tế hoàn thành
+  condition:
+    - active_loop: medical_advice_form
+  steps:
+    - action: medical_advice_form
+    - active_loop: null
+    - action: action_provide_medical_advice
+
+- rule: Xử lý tình huống khẩn cấp
+  steps:
+    - intent: ask_emergency
+    - action: action_emergency_handling
+    - action: utter_emergency_advice
+    - action: action_listen 
+
+- rule: Chào hỏi
+  condition:
+    - active_loop: null
+  steps:
+    - intent: greet
+    - action: utter_greet
+
+- rule: Tạm biệt
+  condition:
+    - active_loop: null
+  steps:
+    - intent: goodbye
+    - action: utter_goodbye
+
+- rule: Hủy form đặt lịch
+  condition:
+    - active_loop: booking_form
+  steps:
+    - intent: deny
+    - action: utter_deny
+    - action: booking_form
+    - active_loop: null
+
+- rule: Hủy form tư vấn y tế
+  condition:
+    - active_loop: medical_advice_form
+  steps:
+    - intent: deny
+    - action: utter_deny
+    - action: medical_advice_form
+    - active_loop: null

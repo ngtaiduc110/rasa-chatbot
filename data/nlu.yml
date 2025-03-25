@@ -1,0 +1,168 @@
+version: "3.1"
+
+nlu:
+  - intent: book_appointment
+    examples: |
+      - Tôi muốn đặt lịch khám bệnh
+      - Cho tôi đăng ký lịch khám
+      - Tôi cần hẹn khám bệnh
+      - Đặt lịch khám giúp tôi
+      - Mình muốn hẹn bác sĩ
+      - tôi muốn đặt lịch khám
+      - đặt lịch khám bệnh
+      - tôi cần khám bác sĩ
+      - muốn hẹn khám
+      - làm thế nào để đặt lịch khám
+      - tôi cần đặt lịch
+      - có thể đặt lịch khám được không
+
+  - intent: inform
+    examples: |
+      - Tên tôi là [Ngọc](name)
+      - Tôi tên là [Minh Anh](name)
+      - Tôi muốn đặt lịch vào ngày [25/03/2025](date)
+      - Lịch khám vào lúc [10 giờ sáng](time)
+      - Địa chỉ của tôi là [123 Nguyễn Trãi](address)
+      - Số điện thoại của tôi là [0987654321](phone_number)
+      - Tôi [25](age) tuổi
+      - Tôi là [nam](gender)
+      - Nhóm máu của tôi là [O](blood_type)
+      - Tôi bị dị ứng với [penicillin](allergies)
+      - tên tôi là [Nguyễn Văn An](name)
+      - [0912345678](phone_number)
+      - ngày [15/06/2024](date)
+      - giờ [10:30](time)
+      - tôi muốn [Khám tổng quát](medical_service)
+      - dịch vụ [Khám chuyên khoa](medical_service)
+
+  - intent: ask_medical_advice
+    examples: |
+      - Tôi bị [đau đầu](symptoms) và [buồn nôn](symptoms)
+      - Tôi đang [sốt](symptoms) [38 độ](symptoms)
+      - Tôi bị [ho](symptoms) và [đau họng](symptoms)
+      - Tôi cảm thấy [mệt mỏi](symptoms) và [chán ăn](symptoms)
+      - Tôi bị [đau bụng](symptoms) [dữ dội](severity)
+      - Triệu chứng của tôi [nhẹ](severity)
+      - Tôi bị [nặng](severity) lắm
+      - Tôi có tiền sử [huyết áp cao](medical_history)
+      - Tôi bị [tiểu đường](medical_history) từ nhỏ
+      - Tôi dị ứng với [thuốc kháng sinh](allergies)
+
+  - intent: ask_emergency
+    examples: |
+      - Tôi đang [đau ngực](symptoms) [dữ dội](severity)
+      - Tôi bị [khó thở](symptoms) [nặng](severity)
+      - Tôi bị [chảy máu](symptoms) [nhiều](severity)
+      - Tôi bị [ngất](symptoms)
+      - Tôi cần cấp cứu ngay
+      - Tình trạng của tôi [nguy kịch](severity)
+
+  - intent: ask_insurance
+    examples: |
+      - Tôi có [bảo hiểm y tế](insurance_type)
+      - Tôi muốn dùng [bảo hiểm thương mại](insurance_type)
+      - Tôi có [bảo hiểm du lịch](insurance_type)
+      - Bảo hiểm có chi trả không
+      - Tỷ lệ chi trả bảo hiểm là bao nhiêu
+      - Bảo hiểm có chi trả cho [khám tổng quát](medical_service) không
+
+  - intent: ask_doctor_info
+    examples: |
+      - Tôi muốn tìm hiểu về bác sĩ [Nguyễn Văn A](doctor_name)
+      - Bác sĩ [Trần Thị B](doctor_name) có kinh nghiệm gì
+      - Lịch khám của bác sĩ [Lê Văn C](doctor_name)
+      - Bác sĩ [Phạm Thị D](doctor_name) chuyên về [nhi khoa](department)
+      - Bác sĩ [Hoàng Văn E](doctor_name) làm việc ở khoa [tim mạch](department)
+
+  - intent: ask_department_info
+    examples: |
+      - Khoa [nhi](department) có những dịch vụ gì
+      - Khoa [tim mạch](department) có mấy bác sĩ
+      - Khoa [sản](department) làm việc giờ nào
+      - Khoa [nội](department) có khám ngoài giờ không
+      - Khoa [răng hàm mặt](department) có thiết bị gì
+
+  - intent: ask_medical_history
+    examples: |
+      - Tôi có tiền sử [huyết áp cao](medical_history)
+      - Tôi bị [tiểu đường](medical_history) từ nhỏ
+      - Tôi có bệnh [tim mạch](medical_history)
+      - Tôi bị [hen suyễn](medical_history)
+      - Tôi có tiền sử [dị ứng](medical_history)
+
+  - intent: ask_medication
+    examples: |
+      - Tôi đang uống [thuốc huyết áp](medication)
+      - Tôi cần tư vấn về [thuốc kháng sinh](medication)
+      - Tôi muốn biết về [thuốc giảm đau](medication)
+      - Tôi đang dùng [thuốc tiểu đường](medication)
+      - Tôi cần tư vấn về [thuốc kháng viêm](medication)
+
+  - intent: ask_facilities
+    examples: |
+      - Bệnh viện có [máy chụp X-quang](facility) không
+      - Có [phòng cấp cứu](facility) không
+      - Bệnh viện có [phòng xét nghiệm](facility) không
+      - Có [phòng khám ngoài giờ](facility) không
+      - Bệnh viện có [phòng hồi sức](facility) không
+
+  - intent: ask_payment
+    examples: |
+      - Tôi muốn thanh toán bằng [tiền mặt](payment_method)
+      - Có thể thanh toán bằng [thẻ tín dụng](payment_method) không
+      - Tôi muốn dùng [thẻ ATM](payment_method)
+      - Có thể thanh toán bằng [chuyển khoản](payment_method) không
+      - Tôi muốn dùng [ví điện tử](payment_method)
+
+  - intent: greet
+    examples: |
+      - xin chào
+      - hi
+      - hey
+      - chào bác sĩ
+      - hello
+
+  - intent: goodbye
+    examples: |
+      - tạm biệt
+      - bye
+      - hẹn gặp lại
+      - cảm ơn
+      - ok bye
+
+  - intent: affirm
+    examples: |
+      - Đúng rồi
+      - Chính xác
+      - Đúng vậy
+      - Vâng
+      - Có
+
+  - intent: deny
+    examples: |
+      - Không
+      - Sai rồi
+      - Không phải đâu
+      - Không cần
+      - Thôi không cần
+
+  - intent: stop
+    examples: |
+      - Tôi muốn dừng lại
+      - Hủy đặt lịch giúp tôi
+      - Thôi không đặt nữa
+
+  - intent: cancel_appointment
+    examples: |
+      - tôi muốn hủy đặt lịch
+      - không muốn đặt lịch nữa
+      - thôi không khám nữa
+      - hủy cuộc hẹn
+      - đóng form đặt lịch
+
+  - intent: request_services
+    examples: |
+      - các dịch vụ khám của bệnh viện là gì
+      - bệnh viện có những dịch vụ gì
+      - tôi muốn biết thêm về các dịch vụ khám
+      - danh sách dịch vụ y tế

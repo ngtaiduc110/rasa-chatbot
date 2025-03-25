@@ -1,0 +1,72 @@
+language: vi
+pipeline:
+
+- name: WhitespaceTokenizer
+
+- name: LanguageModelFeaturizer
+  model_name: distilbert
+  model_weights: distilbert-base-multilingual-cased
+  cache_dir: "./models/cache"
+  max_model_sequence_length: 128
+
+- name: RegexFeaturizer
+  case_sensitive: false
+
+- name: LexicalSyntacticFeaturizer
+
+- name: CountVectorsFeaturizer
+  analyzer: word
+  min_ngram: 1
+  max_ngram: 2
+
+- name: CountVectorsFeaturizer
+  analyzer: char_wb
+  min_ngram: 1
+  max_ngram: 4
+
+
+- name: DIETClassifier
+  epochs: 100
+  constrain_similarities: true
+  embedding_dimension: 256
+  entity_recognition: true
+  intent_classification: true
+  use_masked_language_model: true
+  BILOU_flag: true
+  batch_size: 64
+  learning_rate: 0.001
+  hidden_layers_sizes:
+    text: [256, 128]
+    label: [256, 128]
+
+- name: EntitySynonymMapper
+
+- name: ResponseSelector
+  epochs: 100
+  constrain_similarities: true
+  retrieval_intent: chitchat
+  scale_loss: true
+  batch_size: 64
+  learning_rate: 0.001
+  hidden_layers_sizes:
+    text: [256, 128]
+    label: [256, 128]
+
+- name: FallbackClassifier
+  threshold: 0.7
+  ambiguity_threshold: 0.1
+
+assistant_id: 20250325-140606-tempered-transmitter
+policies:
+# # No configuration for policies was provided. The following default policies were used to train your model.
+# # If you'd like to customize them, uncomment and adjust the policies.
+# # See https://rasa.com/docs/rasa/policies for more information.
+#   - name: MemoizationPolicy
+#   - name: RulePolicy
+#   - name: UnexpecTEDIntentPolicy
+#     max_history: 5
+#     epochs: 100
+#   - name: TEDPolicy
+#     max_history: 5
+#     epochs: 100
+#     constrain_similarities: true

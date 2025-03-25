@@ -1,0 +1,188 @@
+version: "3.1"
+
+intents:
+  - book_appointment  
+  - request_services
+  - cancel_appointment
+  - goodbye
+  - greet
+  - inform
+  - ask_medical_advice 
+  - ask_emergency  
+  - ask_insurance  
+  - ask_doctor_info  
+  - ask_department_info  
+  - ask_medical_history  
+  - ask_medication  
+  - ask_facilities 
+  - ask_payment  
+  - deny
+  - affirm
+  - stop
+
+entities:
+  - name
+  - date
+  - time
+  - address
+  - phone_number
+  - symptoms  
+  - department  
+  - doctor_name  
+  - insurance_type  
+  - medical_history 
+  - medication 
+  - severity  
+  - payment_method 
+  - facility  
+  - age  
+  - gender 
+  - blood_type  
+  - allergies  
+
+slots:
+  name:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: booking_form
+            requested_slot: name
+  date:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: date
+        conditions:
+          - active_loop: booking_form
+            requested_slot: date
+  time:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: time
+        conditions:
+          - active_loop: booking_form
+            requested_slot: time
+  address:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: address
+        conditions:
+          - active_loop: booking_form
+            requested_slot: address
+  phone_number:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: phone_number
+        conditions:
+          - active_loop: booking_form
+            requested_slot: phone_number
+  department:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: department
+  doctor_name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: doctor_name
+  symptoms:
+    type: list
+    mappings:
+      - type: from_entity
+        entity: symptoms
+  severity:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: severity
+  medical_history:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: medical_history
+  allergies:
+    type: list
+    mappings:
+      - type: from_entity
+        entity: allergies
+
+forms:
+  booking_form:
+    required_slots:
+      - name
+      - date
+      - time
+      - address
+      - phone_number
+  medical_advice_form:
+    required_slots:
+      - symptoms
+      - severity
+      - medical_history
+      - allergies
+
+responses:
+  utter_ask_name:
+    - text: "Bạn vui lòng cho biết tên của mình?"
+  utter_ask_date:
+    - text: "Bạn muốn đặt lịch vào ngày nào?"
+  utter_ask_time:
+    - text: "Bạn muốn đặt lịch vào mấy giờ?"
+  utter_ask_address:
+    - text: "Địa chỉ của bạn là gì?"
+  utter_ask_phone_number:
+    - text: "Số điện thoại của bạn là gì?"
+  utter_submit:
+    - text: "Cảm ơn bạn! Thông tin đặt lịch của bạn đã được ghi nhận."
+  utter_slots_values:
+    - text: |
+        Xác nhận lại thông tin đặt lịch:
+        - Tên: {name}
+        - Ngày: {date}
+        - Giờ: {time}
+        - Địa chỉ: {address}
+        - Số điện thoại: {phone_number}
+  utter_ask_symptoms:
+    - text: "Bạn đang gặp những triệu chứng gì?"
+  utter_ask_severity:
+    - text: "Mức độ nghiêm trọng của các triệu chứng như thế nào? (Nhẹ/Trung bình/Nặng)"
+  utter_ask_medical_history:
+    - text: "Bạn có tiền sử bệnh gì không?"
+  utter_ask_allergies:
+    - text: "Bạn có bị dị ứng với thuốc hoặc thực phẩm gì không?"
+  utter_emergency_advice:
+    - text: "Đây là tình huống khẩn cấp. Vui lòng gọi ngay số điện thoại cấp cứu: 115"
+  utter_insurance_info:
+    - text: "Chúng tôi chấp nhận các loại bảo hiểm sau: Bảo hiểm y tế, Bảo hiểm thương mại, Bảo hiểm du lịch"
+  utter_doctor_info:
+    - text: "Bạn muốn tìm hiểu thông tin về bác sĩ nào?"
+  utter_department_info:
+    - text: "Bạn muốn tìm hiểu thông tin về khoa/chuyên khoa nào?"
+  utter_medical_advice:
+    - text: "Dựa trên thông tin bạn cung cấp, tôi khuyên bạn nên {medical_advice}"
+  utter_greet:
+    - text: "Xin chào! Tôi là trợ lý y tế. Tôi có thể giúp gì cho bạn?"
+  utter_goodbye:
+    - text: "Tạm biệt! Chúc bạn sức khỏe tốt!"
+  utter_deny:
+    - text: "Tôi hiểu rồi. Bạn có cần hỗ trợ gì khác không?"
+  utter_affirm:
+    - text: "Tôi sẽ giúp bạn với điều đó."
+  utter_ask_payment:
+    - text: "Bạn muốn thanh toán bằng phương thức nào?"
+
+actions:
+  - validate_booking_form
+  - action_submit_booking
+  - action_emergency_handling
+  - action_provide_medical_advice
+  - action_search_doctor
+  - action_search_department
+  - action_check_insurance
+  - action_schedule_follow_up
+  - action_submit_appointment
